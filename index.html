@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login Page</title>
+<style>
+  body, html {
+    height: 100%; /* 确保父元素高度足够 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif; /* 设置字体 */
+  }
+</style>
 <script>
 function verifyAnswers() {
     var birthday = document.getElementById('birthday').value;
@@ -20,11 +31,13 @@ function verifyAnswers() {
 </script>
 </head>
 <body>
-<h2>登录验证</h2>
-<p>宝宝的生日（输入八位数）: <input type="text" id="birthday"></p>
-<p>老公的生日: <input type="text" id="husbandBirthday"></p>
-<p>我们的纪念日: <input type="text" id="anniversary"></p>
-<p>爱不爱老公（回答爱或不爱）: <input type="text" id="love"></p>
-<button onclick="verifyAnswers()">登录</button>
+<div class="center">
+    <h2>登录验证</h2>
+    <p>宝宝的生日（输入八位数）: <input type="text" id="birthday"></p>
+    <p>老公的生日: <input type="text" id="husbandBirthday"></p>
+    <p>我们的纪念日: <input type="text" id="anniversary"></p>
+    <p>爱不爱老公（回答爱或不爱）: <input type="text" id="love"></p>
+    <button onclick="verifyAnswers()">登录</button>
+</div>
 </body>
 </html>

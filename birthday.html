@@ -22,18 +22,13 @@
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
-  .photos {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px; /* 照片下方的间距 */
-  }
   .photo {
-    width: 100%; /* 平均分配容器宽度 */
-    padding: 5px; /* 照片间的间距 */
+    width: 50%; /* 控制图片的宽度，相对于容器的宽度 */
+    margin: 350px auto 80px auto; /* 上下自动边距，下方留有空间 */
   }
   img {
-    width: 100%; /* 图片自适应容器宽度 */
-    height: auto; /* 保持图片比例 */
+    width: 100%; /* 图片宽度100%相对于容器 */
+    height: auto; /* 高度自动，保持图片原始比例 */
   }
   .heart {
     position: relative;
@@ -64,10 +59,8 @@
 </head>
 <body>
 <div class="center">
-  <div class="photos">
-    <div class="photo">
-      <img src="https://github.com/happy-birthday-dan/happy-birthday-dan.github.io/blob/main/NO1.jpg?raw=true" alt="Photo 1">
-    </div>
+  <div class="photo">
+    <img src="https://github.com/happy-birthday-dan/happy-birthday-dan.github.io/blob/main/NO1.jpg?raw=true" alt="Photo 1">
   </div>
   <div class="heart"></div>
   <h1>祝宝宝20岁生日快乐！</h1>

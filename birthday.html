@@ -27,13 +27,14 @@
     max-height: 200px;
     position: relative;
     margin: 20px auto;
+    overflow: hidden;
   }
   .slide {
     position: absolute;
     width: 100%;
     height: 100%;
+    transition: opacity 1s ease-in-out;
     opacity: 0;
-    transition: opacity 1s;
   }
   .heart {
     position: relative;
@@ -62,32 +63,29 @@
   }
 </style>
 <script>
-  var slideIndex = 0;
-  function showSlides() {
-    var slides = document.getElementsByClassName("slide");
-    for (var i = 0; i < slides.length; i++) {
-      slides[i].style.opacity = 0;
-    }
-    slideIndex++;
-    if (slideIndex > slides.length) {slideIndex = 1}
-    slides[slideIndex-1].style.opacity = 1;
-    setTimeout(showSlides, 10000); // Change image every 10 seconds
-  }
+function showSlides() {
+  let slides = document.getElementsByClassName("slide");
+  let currentIndex = 0;
+  slides[currentIndex].style.opacity = 1;  // Ensure the first image is visible initially
+
+  setInterval(function() {
+    slides[currentIndex].style.opacity = 0;  // Hide the current slide
+    currentIndex = (currentIndex + 1) % slides.length;  // Move to the next slide
+    slides[currentIndex].style.opacity = 1;  // Show the next slide
+  }, 10000);  // Change image every 10 seconds
+}
 </script>
 </head>
-<body onload="showSlides()">
+<body onload="showSlides();">
 <div class="center">
   <div id="slideshow">
     <img class="slide" src="https://github.com/happy-birthday-dan/happy-birthday-dan.github.io/blob/main/NO1.jpg?raw=true" alt="Photo 1">
-    <img class="slide" src="https://github.com/happy-birthday-dan/happy-birthday-dan.github.io/blob/main/NO2.jpg?raw=true" alt="Photo 2" style="opacity: 0;">
-    <img class="slide" src="https://github.com/happy-birthday-dan/happy-birthday-dan.github.io/blob/main/NO3.jpg?raw=true" alt="Photo 3" style="opacity: 0;">
-    <img class="slide" src="https://github.com/happy-birthday-dan/happy-birthday-dan.github.io/blob/main/NO4.jpg?raw=true" alt="Photo 4" style="opacity: 0;">
+    <img class="slide" src="https://github.com/happy-birthday-dan/happy-birthday-dan.github.io/blob/main/NO2.jpg?raw=true" alt="Photo 2">
+    <img class="slide" src="https://github.com/happy-birthday-dan/happy-birthday-dan.github.io/blob/main/NO3.jpg?raw=true" alt="Photo 3">
+    <img class="slide" src="https://github.com/happy-birthday-dan/happy-birthday-dan.github.io/blob/main/NO4.jpg?raw=true" alt="Photo 4">
   </div>
   <div class="heart"></div>
   <h1>祝宝宝20岁生日快乐！</h1>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", showSlides);
-</script>
 </body>
 </html>

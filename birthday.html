@@ -13,6 +13,21 @@
     justify-content: center;
     align-items: center;
     font-family: Arial, sans-serif; /* 设置字体 */
+    background-color: #f0f0f0; /* 背景颜色 */
+  }
+  .center {
+    text-align: center; /* 内容居中 */
+    background-color: white; /* 背景色 */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  .photos {
+    margin-bottom: 20px; /* 照片下方的间距 */
+  }
+  img {
+    width: 48%; /* 图片宽度，稍小于一半以适应边距 */
+    margin: 1%; /* 图片间的间距 */
   }
   .heart {
     width: 100px;
@@ -20,7 +35,7 @@
     background: red;
     position: relative;
     transform: rotate(-45deg);
-    margin: 50px;
+    margin: 20px auto; /* 自动左右边距实现居中 */
   }
   .heart:before,
   .heart:after {
@@ -41,6 +56,12 @@
 </head>
 <body>
 <div class="center">
+  <div class="photos">
+    <img src="https://github.com/happy-birthday-dan/happy-birthday-dan.github.io/blob/main/NO1.jpg?raw=true" alt="Photo 1">
+    <img src="https://github.com/happy-birthday-dan/happy-birthday-dan.github.io/blob/main/NO2.jpg?raw=true" alt="Photo 2">
+    <img src="https://github.com/happy-birthday-dan/happy-birthday-dan.github.io/blob/main/NO3.jpg?raw=true" alt="Photo 3">
+    <img src="https://github.com/happy-birthday-dan/happy-birthday-dan.github.io/blob/main/NO4.jpg?raw=true" alt="Photo 4">
+  </div>
   <div class="heart"></div>
   <h1>祝宝宝20岁生日快乐！</h1>
 </div>

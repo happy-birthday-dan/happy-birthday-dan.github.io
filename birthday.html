@@ -6,51 +6,53 @@
 <title>Birthday Greeting</title>
 <style>
   body, html {
-    height: 100%; /* 确保父元素高度足够 */
+    height: 100%;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: Arial, sans-serif; /* 设置字体 */
-    background-color: #f0f0f0; /* 背景颜色 */
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
   }
   .center {
-    text-align: center; /* 内容居中 */
-    background-color: white; /* 背景色 */
+    text-align: center;
+    background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
   .photos {
-    margin-bottom: 20px; /* 照片下方的间距 */
+    margin-bottom: 20px;
   }
   img {
-    width: 48%; /* 图片宽度，稍小于一半以适应边距 */
-    margin: 1%; /* 图片间的间距 */
+    width: 48%;
+    margin: 1%;
   }
   .heart {
-    width: 100px;
-    height: 90px;
-    background: red;
     position: relative;
+    width: 120px;
+    height: 120px;
+    background-color: red;
+    margin: 20px auto;
     transform: rotate(-45deg);
-    margin: 20px auto; /* 自动左右边距实现居中 */
   }
   .heart:before,
   .heart:after {
     content: "";
     position: absolute;
-    width: 100px;
-    height: 100px;
-    background: red;
+    width: 120px;
+    height: 120px;
+    background-color: red;
     border-radius: 50%;
-    top: -50px;
+  }
+  .heart:before {
+    top: -60px;
     left: 0;
   }
   .heart:after {
     top: 0;
-    left: 50px;
+    left: 60px;
   }
 </style>
 </head>

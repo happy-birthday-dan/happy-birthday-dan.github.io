@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+<script>
+function verifyAnswers() {
+    var birthday = document.getElementById('birthday').value;
+    var husbandBirthday = document.getElementById('husbandBirthday').value;
+    var anniversary = document.getElementById('anniversary').value;
+    var love = document.getElementById('love').value;
+
+    if (birthday === '20040811' && husbandBirthday === '20040404' && anniversary === '20220808' && love === '爱') {
+        window.location.href = 'birthday.html'; // Redirect to birthday greeting page
+    } else {
+        alert('答案错误，请重新输入!');
+    }
+}
+</script>
+</head>
+<body>
+<h2>登录验证</h2>
+<p>宝宝的生日（输入八位数）: <input type="text" id="birthday"></p>
+<p>老公的生日: <input type="text" id="husbandBirthday"></p>
+<p>我们的纪念日: <input type="text" id="anniversary"></p>
+<p>爱不爱老公（回答爱或不爱）: <input type="text" id="love"></p>
+<button onclick="verifyAnswers()">登录</button>
+</body>
+</html>

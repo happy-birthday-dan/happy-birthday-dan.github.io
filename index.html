@@ -1,50 +1,240 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login Page</title>
-<style>
-  body, html {
-    height: 100%; /* 确保父元素高度足够 */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif; /* 设置字体 */
-    background-color: #f0f0f0; /* 背景颜色 */
-  }
-  .center {
-    border: 2px solid pink; /* 粉色边框 */
-    padding: 20px; /* 内边距 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 轻微的阴影 */
-    background-color: white; /* 背景色 */
-  }
-</style>
-<script>
-function verifyAnswers() {
-    var birthday = document.getElementById('birthday').value;
-    var husbandBirthday = document.getElementById('husbandBirthday').value;
-    var anniversary = document.getElementById('anniversary').value;
-    var love = document.getElementById('love').value;
-
-    if (birthday === '20040811' && husbandBirthday === '20040404' && anniversary === '20220808' && love === '爱') {
-        window.location.href = 'birthday.html'; // Redirect to birthday greeting page
-    } else {
-        alert('答案错误，请重新输入!');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>给宝宝的生日网页</title>
+  <!-- 字体：卡通+手写风（新增：Zhi Mang Xing、ZCOOL KuaiLe、Long Cang） -->
+  <link href="https://fonts.googleapis.com/css2?family=Pangolin&family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&family=ZCOOL+KuaiLe&family=Long+Cang&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml"
+  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%97%3C/text%3E%3C/svg%3E">
+  <style>
+    :root{
+      --pink-1:#fff0f6; --pink-2:#ffd6e7; --pink-3:#ffadd2; --pink-4:#ff85c0; --purple:#b37feb; --text:#4a2b3b; --card:#ffffffcc; --shadow:0 10px 30px rgba(255,133,192,.35);
+      /* 控制图片铺放：cover=铺满(可能裁剪) / contain=完整显示 */
+      --fit: contain;
     }
-}
-</script>
+    html,body{height:100%;}
+    body{ margin:0; color:var(--text); font-family:"Pangolin", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", sans-serif; background: radial-gradient(1200px 600px at 30% -10%, var(--pink-2), transparent 70%), radial-gradient(900px 600px at 110% 10%, var(--pink-2), transparent 70%), linear-gradient(180deg, var(--pink-1), #ffe9f3 40%, #ffe3f1 100%); overflow-x:hidden; text-align:center; }
+    .container{ max-width:980px; margin:0 auto; padding:24px; }
+    .title{ font-family:"Zhi Mang Xing","Ma Shan Zheng", cursive; font-size: clamp(30px, 6vw, 64px); color:#d63384; letter-spacing:1px; margin:16px 0 6px; }
+    .subtitle{ color:#c2255c; margin:0 0 18px; }
+
+    .card{ background:var(--card); backdrop-filter: blur(6px); border:2px dashed var(--pink-3); border-radius:24px; padding:22px; box-shadow:var(--shadow); text-align:left; }
+    .hidden{ display:none !important; }
+
+    /* 页1：密码门 */
+    .hint{ color:#a61e4d; text-align:center; }
+    .gate-wrap{ display:grid; grid-template-columns:1fr auto; gap:12px; }
+    .input{ width:100%; padding:12px 14px; border-radius:14px; border:2px solid var(--pink-3); outline:none; font-size:18px; background:#fff; }
+    .input:focus{ border-color:var(--purple); box-shadow:0 0 0 4px #f3e8ff; }
+    .btn{ cursor:pointer; border:none; padding:10px 18px; border-radius:14px; font-size:16px; transition:.2s ease; box-shadow:var(--shadow); background:linear-gradient(180deg, #ffd0e6, #ff9ad1); color:#7a2849; }
+    .btn:hover{ transform:translateY(-2px); }
+    .btn-outline{ background:#fff; border:2px solid var(--pink-3); }
+    .small{ padding:6px 12px; font-size:14px; border-radius:10px; }
+
+    /* 页2：选择题 */
+    #quiz .q{ font-size: clamp(22px, 4vw, 34px); text-align:center; margin-bottom:16px; }
+    .choices{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .shake{ animation:shake .4s; }
+    @keyframes shake{ 0%,100%{ transform:translateX(0); } 25%{ transform:translateX(-6px); } 75%{ transform:translateX(6px);} }
+
+    /* 页3：相册 */
+    #gallery{ text-align:center; }
+    .toolbar{ display:flex; justify-content:flex-end; margin:8px 0 10px; gap:8px; }
+    .stage{ position:relative; height:66vh; max-height:72vh; border-radius:26px; overflow:hidden; border:3px solid var(--pink-3); background:#fff; margin:0 auto; box-shadow:0 0 0 3px rgba(255,173,210,.35), 0 0 18px rgba(255,133,192,.55), 0 0 36px rgba(255,133,192,.35); animation:glow 3s ease-in-out infinite; }
+    @keyframes glow{ 0%,100%{ box-shadow:0 0 0 3px rgba(255,173,210,.35), 0 0 16px rgba(255,133,192,.45), 0 0 28px rgba(255,133,192,.25);} 50%{ box-shadow:0 0 0 3px rgba(255,173,210,.5), 0 0 26px rgba(255,133,192,.75), 0 0 50px rgba(255,133,192,.45);} }
+    .slide{ position:absolute; inset:0; opacity:0; transition:opacity .6s ease; display:flex; align-items:center; justify-content:center; }
+    .slide.active{ opacity:1; }
+    .slide img{ width:100%; height:100%; object-fit: var(--fit); background:#fff; }
+    .caption{ position:absolute; left:50%; bottom:14px; transform:translateX(-50%); background:rgba(255,255,255,.85); padding:8px 14px; border-radius:999px; border:2px solid var(--pink-3); font-size:14px; }
+    .dots{ display:flex; gap:6px; justify-content:center; margin-top:10px; }
+    .dot{ width:10px; height:10px; border-radius:50%; background:#ffd6e7; border:2px solid #ff9ad1; opacity:.7; cursor:pointer; }
+    .dot.active{ opacity:1; background:#ff85c0; }
+    .big-words{ font-family:"Zhi Mang Xing","Ma Shan Zheng", cursive; text-align:center; font-size: clamp(30px, 7vw, 68px); color:#e03177; margin-top:16px; text-shadow:0 8px 20px rgba(255,133,192,.35); }
+    .hearts{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .hearts span{ position:absolute; font-size:18px; opacity:0.8; animation:fall linear infinite; }
+    @keyframes fall{ from{ transform: translateY(-10vh) translateX(0) rotate(0deg); opacity:.9; } to{ transform: translateY(90vh) translateX(-20px) rotate(360deg); opacity:0; } }
+
+    footer{ text-align:center; font-size:12px; color:#a86186; padding:20px 0 12px; }
+
+    /* BGM 悬浮按钮 */
+    .bgm-btn{ position:fixed; right:18px; bottom:18px; z-index:20; width:48px; height:48px; border-radius:999px; border:2px solid var(--pink-3); background:linear-gradient(180deg,#ffe1ef,#ffb3d7); color:#7a2849; box-shadow:0 10px 24px rgba(255,133,192,.45); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:22px; transition:.2s ease; }
+    .bgm-btn:hover{ transform:translateY(-2px); }
+    .bgm-btn.on{ box-shadow:0 0 0 3px rgba(255,173,210,.35), 0 0 18px rgba(255,133,192,.75), 0 0 36px rgba(255,133,192,.55); }
+  </style>
 </head>
 <body>
-<div class="center">
-    <h2>登录验证</h2>
-    <p>宝宝的生日（输入八位数）: <input type="text" id="birthday"></p>
-    <p>老公的生日: <input type="text" id="husbandBirthday"></p>
-    <p>我们的纪念日: <input type="text" id="anniversary"></p>
-    <p>爱不爱老公（回答爱或不爱）: <input type="text" id="love"></p>
-    <button onclick="verifyAnswers()">登录</button>
-</div>
+  <div class="container">
+    <h1 class="title">给宝宝的专属小站 <span>❤</span></h1>
+    <p class="subtitle">（为 <strong>21岁生日</strong> 精心准备 | 仅限本人进入）</p>
+
+    <!-- 页1：密码门（每次都需输入） -->
+    <section id="gate" class="card">
+      <h2 style="margin:0 0 8px 0; text-align:center;">先输入属于我们的专属密码~</h2>
+      <p class="hint">提示：是一个重要日子喔！</p>
+      <div class="gate-wrap">
+        <input id="pwd" class="input" inputmode="numeric" maxlength="8" placeholder="请输入 8 位密码" />
+        <button id="btn-go" class="btn">进入</button>
+      </div>
+      <p id="err" style="height:22px; color:#d63384; margin:10px 0 0 2px; text-align:center;"></p>
+    </section>
+
+    <!-- 页2：选择题 -->
+    <section id="quiz" class="card hidden">
+      <div class="q">爱不爱老公？</div>
+      <div class="choices">
+        <button id="no" class="btn btn-outline">不爱</button>
+        <button id="yes" class="btn">爱！</button>
+      </div>
+    </section>
+
+    <!-- 页3：相册 + 祝福 -->
+    <section id="gallery" class="hidden">
+      <!-- 可启用显示模式切换按钮（全图/铺满）：将下面注释取消即可 -->
+      <!--
+      <div class="toolbar">
+        <button id="fitToggle" class="btn btn-outline small" aria-pressed="true" title="切换显示模式：全图/铺满">当前：全图（不裁剪）</button>
+      </div>
+      -->
+      <div class="stage" id="stage" aria-live="polite" aria-label="甜甜的回忆相册">
+        <div class="hearts" id="hearts"></div>
+      </div>
+      <div class="dots" id="dots"></div>
+      <div class="big-words">祝我最美丽最可爱全世界最好的小宝宝 21 岁生日快乐 ❤</div>
+      <div class="big-words">祝宝宝健康开心！我们永远在一起喔 ❤</div>
+    </section>
+
+    <footer>© 只属于你的小惊喜 · Made with ❤</footer>
+  </div>
+
+  <!-- 背景音乐（请将音频文件放到 /audio/nuannuan.mp3） -->
+  <audio id="bgm" src="audio/nuannuan.mp3" preload="auto" loop></audio>
+  <button id="bgmToggle" class="bgm-btn" aria-pressed="false" title="播放/暂停 BGM">🎵</button>
+
+  <script>
+    // ======== 自定义区（按需修改）========
+    const CORRECT_PASSWORD = "20220808"; // 密码
+    const PHOTOS = [
+      "images/NO1.jpg",
+      "images/NO2.jpg",
+      "images/NO3.jpg",
+      "images/NO4.jpg",
+      "images/NO5.jpg",
+      "images/NO6.jpg",
+      "images/NO7.jpg",
+      "images/NO8.jpg",
+      "images/NO9.jpg",
+      "images/NO10.jpg",
+    ];
+    const SLIDE_SECONDS = 3.2; // 幻灯片切换秒数
+    // ====================================
+
+    const $ = sel => document.querySelector(sel);
+    const gate = $('#gate');
+    const quiz = $('#quiz');
+    const gallery = $('#gallery');
+    const err = $('#err');
+
+    // 页1：验证（不记忆，次次都输）
+    $('#btn-go').addEventListener('click', tryEnter);
+    $('#pwd').addEventListener('keydown', e=>{ if(e.key==='Enter') tryEnter(); });
+    function tryEnter(){
+      const v = $('#pwd').value.trim();
+      if(v === CORRECT_PASSWORD){ err.textContent = ''; goto('quiz'); }
+      else{ err.textContent = '再给小宝包一次机会~'; gate.classList.remove('shake'); void gate.offsetWidth; gate.classList.add('shake'); }
+    }
+
+    // 页2：选择题
+    $('#no').addEventListener('click', ()=>{ alert('再给你一次机会喔宝宝~'); quiz.classList.remove('shake'); void quiz.offsetWidth; quiz.classList.add('shake'); });
+    $('#yes').addEventListener('click', ()=>{ goto('gallery'); startSlideshow(); sprinkleHearts(); safePlayBgm(); });
+
+    // 页切换
+    function goto(which){
+      gate.classList.add('hidden'); quiz.classList.add('hidden'); gallery.classList.add('hidden');
+      if(which==='gate') gate.classList.remove('hidden');
+      if(which==='quiz') quiz.classList.remove('hidden');
+      if(which==='gallery') gallery.classList.remove('hidden');
+    }
+
+    // 页3：相册逻辑
+    let idx=0, timer=null; 
+    const stage = document.getElementById('stage');
+    const dots = document.getElementById('dots');
+
+    function createSlides(){
+      stage.querySelectorAll('.slide').forEach(n=>n.remove());
+      dots.innerHTML = '';
+      PHOTOS.forEach((src,i)=>{
+        const s = document.createElement('div'); s.className = 'slide';
+        const img = document.createElement('img'); img.alt = '我们的照片'+(i+1); img.src = src; s.appendChild(img);
+        stage.insertBefore(s, stage.firstChild);
+        const dot = document.createElement('div'); dot.className = 'dot'; dot.addEventListener('click',()=>go(i)); dots.appendChild(dot);
+      });
+    }
+
+    function go(i){ idx = (i+PHOTOS.length)%PHOTOS.length; updateSlides(); restartTimer(); }
+    function updateSlides(){
+      const slides = stage.querySelectorAll('.slide'); const d = dots.querySelectorAll('.dot');
+      slides.forEach((s,j)=>{ s.classList.toggle('active', j===idx); });
+      d.forEach((x,j)=>{ x.classList.toggle('active', j===idx); });
+    }
+    function restartTimer(){ if(timer) clearInterval(timer); timer = setInterval(()=>go(idx+1), SLIDE_SECONDS*1000); }
+    function startSlideshow(){ createSlides(); idx=0; updateSlides(); restartTimer(); }
+
+    // 爱心雨
+    function sprinkleHearts(){
+      const hearts = document.getElementById('hearts');
+      for(let i=0;i<26;i++){
+        const s = document.createElement('span'); s.textContent = Math.random()>0.5 ? '❤' : '💗';
+        s.style.left = Math.random()*100+'%'; s.style.top = (-10 - Math.random()*30) + 'vh'; s.style.animationDuration = (6 + Math.random()*8)+'s'; s.style.fontSize = (16 + Math.random()*24)+'px'; hearts.appendChild(s);
+      }
+      setInterval(()=>{
+        const s = document.createElement('span'); s.textContent = Math.random()>0.5 ? '❤' : '💖';
+        s.style.left = Math.random()*100+'%'; s.style.top = '-12vh'; s.style.animationDuration = (6 + Math.random()*8)+'s'; s.style.fontSize = (16 + Math.random()*24)+'px'; hearts.appendChild(s);
+        if(hearts.children.length>120){ hearts.removeChild(hearts.firstChild); }
+      }, 800);
+    }
+
+    // 显示模式切换（如启用按钮）
+    const fitToggle = document.getElementById('fitToggle');
+    if(fitToggle){
+      fitToggle.addEventListener('click', ()=>{
+        const current = getComputedStyle(document.documentElement).getPropertyValue('--fit').trim();
+        const next = current === 'contain' ? 'cover' : 'contain';
+        document.documentElement.style.setProperty('--fit', next);
+        fitToggle.textContent = next==='contain' ? '当前：全图（不裁剪）' : '当前：铺满（可能裁剪）';
+        fitToggle.setAttribute('aria-pressed', next==='cover');
+      });
+    }
+
+    // 可选：图片预加载
+    (function preload(){ PHOTOS.forEach(src=>{ const i=new Image(); i.src=src; }); })();
+
+    // ======= 背景音乐控制 =======
+    const bgm = document.getElementById('bgm');
+    const bgmToggle = document.getElementById('bgmToggle');
+
+    function updateBgmBtn(){
+      if(bgm && !bgm.paused && !bgm.muted){ bgmToggle.classList.add('on'); bgmToggle.textContent = '🔊'; bgmToggle.setAttribute('aria-pressed','true'); }
+      else { bgmToggle.classList.remove('on'); bgmToggle.textContent = '🔇'; bgmToggle.setAttribute('aria-pressed','false'); }
+    }
+
+    function safePlayBgm(){
+      if(!bgm) return;
+      bgm.muted = false;
+      bgm.play().then(updateBgmBtn).catch(()=>{ /* 若被拦截，等待用户手动点按钮 */ });
+    }
+
+    bgmToggle.addEventListener('click', ()=>{
+      if(!bgm) return;
+      if(bgm.paused){ bgm.muted = false; bgm.play().catch(()=>{}); }
+      else { bgm.pause(); }
+      updateBgmBtn();
+    });
+
+    // 初始状态显示为未播放
+    updateBgmBtn();
+  </script>
 </body>
 </html>
